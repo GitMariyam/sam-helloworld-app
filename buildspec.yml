@@ -1,0 +1,16 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.9  # Changed from nodejs to python 3.9
+    commands:
+      - pip install aws-sam-cli  # Changed from npm install to pip install
+  build:
+    commands:
+      - sam build
+      # --no-resolve-s3 will use our S3 bucket specified via --s3-bucket instead of using a SAM generated S3 bucket name in order to store packaged artifacts
+      # like lambda code etc ..
+      - sam package --s3-bucket aws-sam-cli-managed-default-samclisourcebucket-lr5awaisvxba   --no-resolve-s3
+artifacts:
+  files:
+    - packaged.yaml
